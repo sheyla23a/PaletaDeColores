@@ -3,18 +3,15 @@ import Form from "react-bootstrap/Form";
 
 const FormularioColores = () => {
   return (
-    <section className="formularioColor d-flex border border-2">
-    <div className="cuadrado1 border border-dark border-2"></div>
-    <div>
-      <Form className="mt-5 d-flex">
+    <section className="formularioColor border border-2">
+      <Form className="mt-5 d-flex justify-center">
         <Form.Group controlId="formBasicEmail">
           <Form.Control type="text" className="FormColor" placeholder="Ingrese un color Ej: Azul" />
         </Form.Group>
-        <Button className="ms-4" variant="primary" type="submit">
+        <Button className="ms-2 " variant="primary" type="submit">
           Agregar
         </Button>
       </Form>
-    </div>
   </section>
   );
 };

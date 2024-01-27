@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Container className="mt-5 p-2 border border-2 w-75">
+      <Container className="mt-5 p-2 border border-2 w-50">
         <p>Administrar colores</p>
         <section>
           <FormularioColores></FormularioColores>
