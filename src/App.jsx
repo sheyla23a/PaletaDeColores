@@ -1,7 +1,19 @@
+import { Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import FormularioColores from "./components/FormularioColores";
 import "./App.css";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Container className="mt-5 p-2 border border-2 w-75">
+        <p>Administrar colores</p>
+        <section>
+          <FormularioColores></FormularioColores>
+        </section>
+      </Container>
+    </>
+  );
 }
 
 export default App;
