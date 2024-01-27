@@ -9,7 +9,7 @@ const FormularioColores = () => {
           <Form.Control type="text" className="FormColor" placeholder="Ingrese un color Ej: Azul" />
         </Form.Group>
         <Button className="ms-2 " variant="primary" type="submit">
-          Agregar
+          Guardar
         </Button>
       </Form>
   </section>
