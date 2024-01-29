@@ -5,14 +5,10 @@ import "./App.css";
 
 function App() {
   return (
-    <>
-      <Container className="mt-5 p-2 border border-2">
-        <p>Administrar colores</p>
-        <section>
-          <FormularioColores></FormularioColores>
-        </section>
-      </Container>
-    </>
+    <Container className="mt-5 p-2 border border-2">
+      <p>Administrar colores</p>
+      <FormularioColores></FormularioColores>
+    </Container>
   );
 }
 
