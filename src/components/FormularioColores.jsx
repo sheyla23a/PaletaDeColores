@@ -1,21 +1,32 @@
 import { Form, Button } from "react-bootstrap";
 import ListaColores from "./ListaColores";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FormularioColores = () => {
   const [color, setColor] = useState("");
-  const[colores,setColores] = useState([]);
-   
-  const handleSubmit = (e)=>{
-    e.preventDefault();
-    setColores([... colores, color]);
-    setColor('')
-  } 
+  const coloresLocalStorage =
+    JSON.parse(localStorage.getItem("coloresKey")) || [];
+  const [colores, setColores] = useState(coloresLocalStorage);
 
-  const borrarColor = (nombreColor)=>{
-    const coloresFiltrados = colores.filter((color)=> color !== nombreColor);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(color.trim().length > 0){
+      setColores([...colores, color]);
+      setColor("");
+    } else{
+      alert("Ingresa al menos un color");
+    }
+  };
+
+  const borrarColor = (nombreColor) => {
+    const coloresFiltrados = colores.filter((color) => color !== nombreColor);
     setColores(coloresFiltrados);
-  }
+  };
+
+  useEffect(() => {
+    console.log("ejecutando useEffect, aqui guardo en localStorage");
+    localStorage.setItem("coloresKey", JSON.stringify(colores));
+  }, [colores]);
 
   return (
     <section className="formularioColor border border-2 p-3">
@@ -27,7 +38,7 @@ const FormularioColores = () => {
             minLength={4}
             maxLength={10}
             placeholder="Ingrese un color (Ej: Azul)"
-            onChange={(e)=>setColor(e.target.value)}
+            onChange={(e) => setColor(e.target.value)}
             value={color}
           />
         </Form.Group>
@@ -37,7 +48,10 @@ const FormularioColores = () => {
           </Button>
         </div>
       </Form>
-      <ListaColores coloresProps={colores} borrarColor={borrarColor}></ListaColores>
+      <ListaColores
+        coloresProps={colores}
+        borrarColor={borrarColor}
+      ></ListaColores>
     </section>
   );
 };
