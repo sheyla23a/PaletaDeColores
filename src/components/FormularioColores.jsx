@@ -12,6 +12,11 @@ const FormularioColores = () => {
     setColor('')
   } 
 
+  const borrarColor = (nombreColor)=>{
+    const coloresFiltrados = colores.filter((color)=> color !== nombreColor);
+    setColores(coloresFiltrados);
+  }
+
   return (
     <section className="formularioColor border border-2 p-3">
       <Form onSubmit={handleSubmit} className="mt-3 mt-md-5 mx-3 mx-md-5">
@@ -32,7 +37,7 @@ const FormularioColores = () => {
           </Button>
         </div>
       </Form>
-      <ListaColores coloresProps={colores}></ListaColores>
+      <ListaColores coloresProps={colores} borrarColor={borrarColor}></ListaColores>
     </section>
   );
 };
