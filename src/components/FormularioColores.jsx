@@ -32,7 +32,7 @@ const FormularioColores = () => {
           </Button>
         </div>
       </Form>
-      <ListaColores></ListaColores>
+      <ListaColores coloresProps={colores}></ListaColores>
     </section>
   );
 };
