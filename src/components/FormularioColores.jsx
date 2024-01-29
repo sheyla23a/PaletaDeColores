@@ -1,7 +1,12 @@
 import { Form, Button } from "react-bootstrap";
 import ListaColores from "./ListaColores";
+import { useState } from "react";
 
 const FormularioColores = () => {
+  const [color, setColor] = useState("");
+
+
+
   return (
     <section className="formularioColor border border-2 p-3">
       <Form className="mt-3 mt-md-5 mx-3 mx-md-5">
@@ -12,6 +17,8 @@ const FormularioColores = () => {
             minLength={4}
             maxLength={10}
             placeholder="Ingrese un color (Ej: Azul)"
+            onChange={(e)=>setColor(e.target.value)}
+            value={color}
           />
         </Form.Group>
         <div className="d-flex justify-content-center my-3  mt-md-0">
