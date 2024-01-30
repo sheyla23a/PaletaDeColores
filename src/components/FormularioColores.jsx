@@ -4,17 +4,20 @@ import { useEffect, useState } from "react";
 
 const FormularioColores = () => {
   const [color, setColor] = useState("");
-  const coloresLocalStorage =
-    JSON.parse(localStorage.getItem("coloresKey")) || [];
+  const coloresLocalStorage = JSON.parse(localStorage.getItem("coloresKey")) || [];
   const [colores, setColores] = useState(coloresLocalStorage);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(color.trim().length > 0){
+    if (isNaN(color) && color.trim().length > 0 && !colores.includes(color)) {
       setColores([...colores, color]);
       setColor("");
-    } else{
-      alert("Ingresa al menos un color");
+    } else {
+      if (colores.includes(color)) {
+        alert("Este color ya ha sido ingresado anteriormente.");
+      } else {
+        alert("Ingresa un color válido (no debe ser un número y debe tener al 4 carácterer).");
+      }
     }
   };
 
@@ -42,18 +45,16 @@ const FormularioColores = () => {
             value={color}
           />
         </Form.Group>
-        <div className="d-flex justify-content-center my-3  mt-md-0">
+        <div className="d-flex justify-content-center my-3 mt-md-0">
           <Button className="ms-2 mt-2 mt-md-3" variant="primary" type="submit">
             Guardar
           </Button>
         </div>
       </Form>
-      <ListaColores
-        coloresProps={colores}
-        borrarColor={borrarColor}
-      ></ListaColores>
+      <ListaColores coloresProps={colores} borrarColor={borrarColor}></ListaColores>
     </section>
   );
 };
 
 export default FormularioColores;
+
