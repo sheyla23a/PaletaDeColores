@@ -3,5 +3,56 @@
     background-color: rgb(194, 239, 239);
 }
 
+.cuadroColor {
+  width: 200px; 
+  padding-top: 50%; 
+  margin-bottom: 1em;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1; 
+}
 
-  
+.FormColor{
+  width: 15%;
+  height: 20vh;
+}
+
+@media all and (min-width: 0px) and (max-width: 767px) {
+  .FormColor{
+    width: 100px;
+    height: 90px;
+    margin-top: 1em;
+  }
+  .formCom{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+
+  }
+ .cuadroColor {
+    width: 100px; 
+    height: 100px;
+    padding-top: initial;
+    margin-bottom: 0;
+    margin: 0 auto; 
+  }}
+  @media all and (min-width: 767px) and (max-width: 990px) {
+    .FormColor{
+      width: 100px;
+      height: 100px;
+      margin-top: 1em;
+    }
+    .cuadroColor {
+      width: 140px;
+    }
+
+    }
+    @media all and (min-width: 990px) and  (max-width: 2040px) {
+      .FormColor{
+        width: 200px;
+        height: 150px;
+      }
+      .cuadroColor {
+        width: 120px; 
+        padding-top: 30%; 
+      }
+    }

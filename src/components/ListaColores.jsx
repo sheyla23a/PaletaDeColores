@@ -1,16 +1,19 @@
-import ListGroup from "react-bootstrap/ListGroup";
+
+import React from "react";
+import { Col, Row } from "react-bootstrap";
 import ItemColor from "./ItemColor";
 
-const ListaColores = ({ coloresProps,borrarColor }) => {
+const ListaColores = ({ coloresProps, borrarColor }) => {
   return (
-    <div>
-      <ListGroup>
-        {coloresProps.map((elementoColor,posicionColor) => (
-          <ItemColor key={posicionColor} nombreColor={elementoColor} borrarColor={borrarColor}></ItemColor>
-        ))}
-      </ListGroup>
-    </div>
+    <Row xs={1} md={2} lg={3} className="g-4 mt-5">
+      {coloresProps?.map((elementoColor, posicionColor) => (
+        <Col key={posicionColor}>
+          <ItemColor nombreColor={elementoColor} borrarColor={borrarColor} />
+        </Col>
+      ))}
+    </Row>
   );
 };
 
 export default ListaColores;
+
