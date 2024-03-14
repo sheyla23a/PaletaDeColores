@@ -7,12 +7,14 @@ const ItemColor = ({ nombreColor, borrarColor }) => {
       <Card.Body className="d-flex flex-column text-center">
         <Card.Title>{nombreColor.nombre}</Card.Title>
         <hr />
-        <div className="cuadroColor" style={{backgroundColor: nombreColor.color}}>
-        </div>
+        <div
+          className="cuadroColor"
+          style={{ backgroundColor: nombreColor.color }}
+        ></div>
         <div className="text-center mt-3">
-        <Button variant="danger" onClick={() => borrarColor(nombreColor)}>
-          Borrar
-        </Button>
+          <Button variant="danger" onClick={() => borrarColor(nombreColor)}>
+            Borrar
+          </Button>
         </div>
       </Card.Body>
     </Card>
