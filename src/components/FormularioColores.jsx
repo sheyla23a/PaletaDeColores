@@ -42,7 +42,6 @@ const FormularioColores = () => {
   const handleBorrarColor = async (id) => {
     try {
       await borrarColorAPI(id);
-      // Filtrar la lista de colores para eliminar el color borrado
       const nuevaListaColores = colores.filter(color => color._id !== id);
       setColores(nuevaListaColores);
     } catch (error) {
