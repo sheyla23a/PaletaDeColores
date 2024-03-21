@@ -1,52 +1,66 @@
 import { Form, Button, FormControl } from "react-bootstrap";
 import ListaColores from "./ListaColores";
 import { useEffect, useState } from "react";
+import {
+  crearColorAPI,
+  leerColoresAPI,
+  borrarColorAPI,
+} from "../helpers/queris.js";
 
 const FormularioColores = () => {
-  const [color, setColor] = useState("");
-  const coloresLocalStorage =
-    JSON.parse(localStorage.getItem("coloresKey")) || [];
-  const [colorHexa, setColorHexa] = useState("#0000ff");
+  const [nombreColor, setNombreColor] = useState({
+    nombre: "",
+    color: "#0000ff",
+  });
   const [colores, setColores] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (isNaN(color) && color.trim().length > 0 && !colores.includes(color)) {
-      const colorSeleccionado = { nombre: color, color: colorHexa };
-      setColores([...colores, colorSeleccionado]);
-      setColor("");
-    } else {
-      if (colores.includes(color)) {
-        alert("Este color ya ha sido ingresado anteriormente.");
-      } else {
-        alert(
-          "Ingresa un color válido (no debe ser un número y debe tener al 4 carácterer)."
-        );
-      }
+  const consultarColores = async () => {
+    try {
+      const resultado = await leerColoresAPI();
+      setColores(resultado);
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const borrarColor = (nombreColor) => {
-    const coloresFiltrados = colores.filter((color) => color !== nombreColor);
-    setColores(coloresFiltrados);
+  useEffect(() => {
+    consultarColores();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await crearColorAPI(nombreColor);
+      const listaColores = await leerColoresAPI();
+      setColores(listaColores);
+      setNombreColor({ nombre: " ", color: "#0000ff" });
+    } catch (error) {
+      console.error("Error al agregar el color:", error);
+    }
   };
 
-  useEffect(() => {
-    localStorage.setItem("coloresKey", JSON.stringify(colores));
-  }, [colores]);
+  const handleBorrarColor = async (id) => {
+    try {
+      await borrarColorAPI(id);
+      // Filtrar la lista de colores para eliminar el color borrado
+      const nuevaListaColores = colores.filter(color => color._id !== id);
+      setColores(nuevaListaColores);
+    } catch (error) {
+      console.error("Error al borrar el color:", error);
+    }
+  };
 
   return (
     <section className="formularioColor p-4">
-      <Form
-        onSubmit={handleSubmit}
-        className="align-items-center"
-      >
+      <Form onSubmit={handleSubmit} className="align-items-center">
         <div className="d-flex flex-column flex-lg-row align-items-center">
           <FormControl
             className="FormColor mb-3 mb-lg-0 me-lg-3"
             type="color"
-            onChange={(e) => setColorHexa(e.target.value)}
-            value={colorHexa}
+            onChange={(e) =>
+              setNombreColor({ ...nombreColor, color: e.target.value })
+            }
+            value={nombreColor.color}
           />
           <Form.Control
             type="text"
@@ -54,22 +68,23 @@ const FormularioColores = () => {
             minLength={4}
             maxLength={10}
             placeholder="Ingrese un color (Ej: Azul)"
-            onChange={(e) => setColor(e.target.value)}
-            value={color}
+            onChange={(e) =>
+              setNombreColor({ ...nombreColor, nombre: e.target.value })
+            }
+            value={nombreColor.nombre}
             style={{ width: "100%" }}
           />
-        <Button
-          className="ms-lg-4 mt-3 mt-lg-0"
-          variant="primary"
-          type="submit"
-          style={{ minWidth: "100px", height: "35px" }}
-        >
-          Guardar
-        </Button>
+          <Button
+            className="ms-lg-4 mt-3 mt-lg-0"
+            variant="primary"
+            type="submit"
+            style={{ minWidth: "100px", height: "35px" }}
+          >
+            Guardar
+          </Button>
         </div>
       </Form>
-
-      <ListaColores coloresProps={colores} borrarColor={borrarColor} />
+      <ListaColores coloresProps={colores} borrarColor={handleBorrarColor} />
     </section>
   );
 };
